@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<form id="serch_form" action="index.html">
+			您喜欢的水果？<br /><br />
+			<table border="" cellspacing="" cellpadding="">
+				<tr>
+					<th>复选框</th>
+					<th>姓名</th>
+					<th>编号</th>
+					<th>颜色</th>
+				</tr>
+				<tr id="1">
+					<td><input name="jqg_listtable_1" class="cbox" type="checkbox" /></td>
+					<td title="苹果" />苹果</td>
+					<td>1001</td>
+					<td>红色</td>
+				</tr>
+				<tr id="2">
+					<td><input name="jqg_listtable_2" class="cbox" type="checkbox" /></td>
+					<td title="香蕉" />香蕉</td>
+					<td>1002</td>
+					<td>黄色</td>
+				</tr>
+				<tr id="3">
+					<td><input name="jqg_listtable_3" class="cbox" type="checkbox" /></td>
+					<td title="橘子" />橘子</td>
+					<td>1003</td>
+					<td>橘色</td>
+				</tr>
+				<tr id="4">
+					<td><input name="jqg_listtable_4" class="cbox" type="checkbox" /></td>
+					<td title="菠萝" />菠萝</td>
+					<td>1004</td>
+					<td>黄色</td>
+				</tr>
+			</table>
+		</form>
+		<script type="text/javascript">
+			window.onload = function() {
+				var fruit_list = document.getElementsByClassName("cbox");
+				for(var i = 0; i < fruit_list.length; i++) {
+					fruit_list[i].onclick = function() {
+						var person_name = this.parentNode.parentNode.childNodes[3].innerHTML;//获取表格中的name值
+						var person_id = this.parentNode.parentNode.childNodes[5].innerHTML;//获取表格中的id值
+						var person_color = this.parentNode.parentNode.childNodes[7].innerHTML;//获取表格中的color值
+						//把各属性封装到一个JSON对象中						
+						var person={
+							name:person_name,
+							id:person_id,
+							color:person_color
+						}
+						person=JSON.stringify(person);//把JSON对象转化成字符串的格式，便于传输
+						if(window.opener){
+							window.opener.location="javascript:set_value('"+person+"');";//调用前一个页面的方法
+							window.opener=null;
+	         				window.close();
+         				}
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

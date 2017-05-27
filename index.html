@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+
+	<body>
+		姓名：
+		<input type=text name="param" id="input_name" value="" placeholder="点击选择" onclick="window.open('new_file.html')">
+		<input type=text name="param" id="input_id" value="">
+		<input type=text name="param" id="input_color" value="">
+		<script type=text/javascript>
+			function set_value(person) {
+				person=JSON.parse(person);//把传过来的字符串还原为JSON格式
+				if(person!=''){
+					document.getElementById("input_name").value =person.name;//把获取到的值放入输入框
+					document.getElementById("input_id").value =person.id;//把获取到的值放入输入框
+					document.getElementById("input_color").value =person.color;//把获取到的值放入输入框
+				}
+			}
+		</script>
+		</br>
+	</body>
+
+</html>

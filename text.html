@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<input type="text" name="search_name" id="serch_name" value="" />
+		<input type="text" name="search_name" id="serch_id" value="" />
+		<input type="text" name="search_name" id="serch_tel" value="" />
+		<input type="button" name="" id="" value="检索" onclick="search()" />
+		<form id="select_form" action="index.html" accept-charset="utf-8">
+			<table>
+				<thead>
+					<tr>
+						<td></td>
+						<td>name</td>
+						<td>id</td>
+						<td>tel</td>
+					</tr>
+				</thead>
+				<tbody id="p_table">
+				</tbody>
+			</table>
+			<input type="submit">
+		</form>
+		<script type="text/javascript">
+			search = function() {
+				document.getElementById('p_table').innerHTML="";
+				var s_name = document.getElementById("serch_name").value;
+				var s_id = document.getElementById("serch_id").value;
+				var s_tel = document.getElementById("serch_tel").value;
+				//alert(name+id+tel);
+				var p_list = [{
+					name: "张三",
+					id: "1001",
+					tel: "132456"
+				}, {
+					name: "张三",
+					id: "1002",
+					tel: "132456"
+				}, {
+					name: "李四",
+					id: "1003",
+					tel: "132456"
+				}, {
+					name: "王五",
+					id: "1004",
+					tel: "132456"
+				}];
+				var tbody = document.getElementById('p_table');
+				for(var i = 0; i < p_list.length; i++) {
+					if(	(s_name != '' && s_id=='' && s_tel=='' && p_list[i].name == s_name)||
+						(s_name == '' && s_id!='' && s_tel=='' && p_list[i].id == s_id)||
+						(s_name == '' && s_id=='' && s_tel!='' && p_list[i].tel == s_tel)||
+						(s_name != '' && s_id!='' && s_tel=='' && p_list[i].name == s_name && p_list[i].id == s_id)||
+						(s_name != '' && s_id=='' && s_tel!='' && p_list[i].name == s_name && p_list[i].tel == s_tel)||
+						(s_name == '' && s_id!='' && s_tel!='' && p_list[i].id == s_id && p_list[i].tel == s_tel)||
+						(s_name != '' && s_id!='' && s_tel!='' && p_list[i].name == s_name && p_list[i].id == s_id && p_list[i].tel == s_tel)||
+						(s_name=='' && s_id=='' && s_tel=='')
+					) {
+						var trow = getDataRow(p_list[i]); //定义一个方法,返回tr数据 
+						tbody.appendChild(trow);
+					}
+				}
+
+			}
+
+			function getDataRow(h) {
+				var row = document.createElement('tr'); //创建行 
+				
+				var selectCell = document.createElement('td'); //创建第一列，操作列 
+				row.appendChild(selectCell);
+				var btnDel = document.createElement('input'); //创建一个input控件 
+				btnDel.setAttribute('type', 'radio'); //type="radio" 
+				btnDel.setAttribute('name', 'person'); 
+				btnDel.setAttribute('value', h.name); 
+				btnDel.setAttribute('onclick', 'checkOne()');
+				selectCell.appendChild(btnDel); //把单选按钮加入td，别忘了 
+				
+				var nameCell = document.createElement('td'); //创建第二列name 
+				nameCell.innerHTML = h.name;
+				row.appendChild(nameCell);
+				
+				var idCell = document.createElement('td'); //创建第三列id 
+				idCell.innerHTML = h.id; //填充数据 
+				row.appendChild(idCell); //加入行 ，下面类似 
+				
+				var telCell = document.createElement('td'); //创建第四列tel 
+				telCell.innerHTML = h.tel;
+				row.appendChild(telCell);
+				
+				return row; //返回tr数据   
+			}
+
+			
+			function checkOne(){
+				//alert('bbb');
+				document.getElementById("select_form").submit();
+			}
+			
+		</script>
+	</body>
+
+</html>
